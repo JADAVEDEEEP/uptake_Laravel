@@ -15,7 +15,9 @@
         <div class="logo">
            <p class="main">H-H Travels</p>
            <p class="sub">Travel with Us</p>
+       
         </div>
+       
         <div class="links">
             <ul class="sec1">
                 <li><a href="">Home</a></li>
@@ -41,6 +43,7 @@
                 Explore Packages
             </button>
         </div></div>
+        @livewire('counter')
     </section>
 
  
