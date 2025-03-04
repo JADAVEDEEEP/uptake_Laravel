@@ -1,19 +1,19 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => 'dev-LaravalDay3',
-        'version' => 'dev-LaravalDay3',
-        'reference' => '18aa850262730607efe882ece7424b92a04dcd42',
+        'pretty_version' => 'dev-LaravalDay4',
+        'version' => 'dev-LaravalDay4',
+        'reference' => '5805953f0ed101666ba64a439bd1b550c2bf6d8b',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'dev' => true,
+        'dev' => false,
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => 'dev-LaravalDay3',
-            'version' => 'dev-LaravalDay3',
-            'reference' => '18aa850262730607efe882ece7424b92a04dcd42',
+            'pretty_version' => 'dev-LaravalDay4',
+            'version' => 'dev-LaravalDay4',
+            'reference' => '5805953f0ed101666ba64a439bd1b550c2bf6d8b',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
