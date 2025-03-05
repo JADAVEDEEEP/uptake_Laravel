@@ -1,7 +1,11 @@
 <?php
 
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Providers\ServiceContainerLearning;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Counter;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +17,8 @@ use App\Livewire\Counter;
 |
 */
 
-class Service
-{
-    // ...
-}
  
-Route::get('/a', function (Service $service) {
-    die($service::class);
-});
+
+Route::get('/', function (Controller $controller) {
+    dd($controller::class);
+}); 

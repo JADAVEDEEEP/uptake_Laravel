@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Counter;
+use App\Http\Controllers\ProductController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,11 +14,10 @@ use App\Livewire\Counter;
 |
 */
 
-class Service
-{
-    // ...
-}
- 
-Route::get('/a', function (Service $service) {
-    die($service::class);
+
+
+Route::get('/', function () {
+    return view('products/layouts');
 });
+
+Route::resource('products', ProductController::class);
