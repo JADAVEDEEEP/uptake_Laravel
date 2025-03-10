@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Services\MyCustomService;
 use App\Services\MyService as ServicesMyService;
 use App\TestFacades\TestFacades;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -13,43 +14,8 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class Controller extends BaseController
 {
-  
-    protected $myService,$test;
+    public function doAwesome(MyCustomService $my_custom){
 
-
-
-    public function __construct(ServicesMyService $myService,TestFacades $test)
-
-    {
-
-        $this->myService = $myService;
-        $this->test=$test;
-
+      $my_custom->doSomething();
     }
-
-
-
-    public function someMethod() 
-
-    {
-
-        $result = $this->myService->doSomething();
-        
-
-        return $result;
-
-    }
-   public function facades(){
-
-    $test=$this->test->testingFacades();
-
-    return $test;
-   }
-
-public function combinedMethod()
-{
-    $someMethodResult = $this->someMethod();
-    $facadesResult = $this->facades();
-    return ['someMethod' => $someMethodResult, 'facades' => $facadesResult];
-}
 }

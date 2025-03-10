@@ -9,6 +9,7 @@ use App\TestFacades\TestFacades;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,9 +57,64 @@ Route::get('/users',function(Request $request){
 
 //////////////////REDIRECT ROUTES ////////////////////////////////////////////////////////
 Route::redirect('/here', '/user');
+////////////////////////////////////INTERFACE SERVICE PROVIDER  //////////////////////////////////////////
 
-////////////////////////////////////View Routes //////////////////////////////////////////
+Route::get('sas',[Controller::class,'doAwesome']);
 
-Route::view('/welcome', 'welcome');
+///////////////////////////////////////////WELCOME SCREEN VIEW SCREEN /////////////////////////////////////
+
+Route::get('/',function(){
+    return View('welcome');
+});
+
+
+Route::get('/aboutus',function(){
+    return View('aboutus');
+});
+
+Route::get('/register',function(){
+    return View('register');
+});
+///////////////////////////////////////ROUTE PERAMETERS//////////////////////////////////////
+
+
+
+// Route::get('/post2/{id?}/comment/{commentid?}',function($id=null,$comment=null){
+//     if($id){
+//         return "<h1>India Virat : ".$id."</h1><h1>India Rohit : ".$comment."</h1>";
+//     }else{
+//         return "<h1>No ids</h1>";
+//     }
+// });
+//////////////////////////////////////////ROUTE PERMETERS WITH REGULER EXPRESSION /////////////////////////////////
+
+// Route::get('/post2/{id?}/comment/{commentid?}',function($id,$comment){
+//     return 'Id Would Be Number : '.$id."<br> Only Alphabet Allowed : ".$comment;
+//      })->where('id','[0-9]+')->whereAlphaNumeric('comment');
+     
+    
  
-Route::view('/welcome', 'welcome', ['name' => 'Taylor']);
+    //WhereIN 
+    
+    Route::get('/category/{category}', function (string $category) {
+        return $category;
+    })->whereIn('category', ['movie', 'song', 'painting']);
+
+    //WhereNumber
+     
+    Route::get('/post1/{id?}', function (string $id) {
+        return"Only Numbers : ". $id;
+    })->whereNumber('id');
+
+    //WhereAlpha    
+    
+    Route::get('/post2/{Name?}', function (string $Name) {
+        return"Only Alpha Numerics : ". $Name;
+    })->whereAlpha('Name');
+
+     //WhereAlphaNumeric  
+
+    Route::get('/post3/{Name?}', function (string $Name) {
+        return" Alpha Numerics : ". $Name;
+    })->whereAlphaNumeric('Name');
+

@@ -3,18 +3,10 @@ namespace App\Services;
 
 
 
-class MyCustomService
+interface MyCustomService
 
 {
 
-    public function doSomething($data)
-
-    {
-
-        // Perform some custom logic
-
-        return "Processed data: " . $data;
-
-    }
+    public function doSomething();
 
 }

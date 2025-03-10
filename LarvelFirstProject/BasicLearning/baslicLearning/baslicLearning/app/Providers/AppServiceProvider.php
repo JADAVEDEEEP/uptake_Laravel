@@ -1,10 +1,10 @@
 <?php
-
 namespace App\Providers;
+
 
 use App\Services\MyService;
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Schema;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -14,11 +14,8 @@ class AppServiceProvider extends ServiceProvider
     {
         
 
-        $this->app->bind(MyService::class, function () {
+        $this->app->bind('App\Services\MyCustomService','App\Services\MyService');
 
-            return new MyService();
-
-    });
 }
 
     /**

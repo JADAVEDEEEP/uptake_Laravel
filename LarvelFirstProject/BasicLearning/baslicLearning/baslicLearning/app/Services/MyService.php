@@ -3,12 +3,12 @@
 
 namespace App\Services;
 
-class MyService {
+class MyService implements MyCustomService  {
 
 public function doSomething() {
 
 
-    return "Khada hu ajj bhi Vahi ke tera intazzar he ";
+    echo "Are Hum Jit Gaye Ganv Valo Champions Trophy";
 
 }
 
