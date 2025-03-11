@@ -3,6 +3,8 @@
 use App\Facades\MyCustomFacade;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\CheckRequiredHeader;
 use app\Test\Facades\TestFacades as FacadesTestFacades;
 use App\Test\StaticFacades;
 use App\TestFacades\TestFacades;
@@ -61,20 +63,20 @@ Route::redirect('/here', '/user');
 
 Route::get('sas',[Controller::class,'doAwesome']);
 
-///////////////////////////////////////////WELCOME SCREEN VIEW SCREEN /////////////////////////////////////
+///////////////////////////////////////////WELCOME SCREEN VIEW SCREEN WITH ANCHOR TAGS /////////////////////////////////////
 
-Route::get('/',function(){
-    return View('welcome');
-});
+// Route::get('/',function(){
+//     return View('welcome');
+// });
 
 
-Route::get('/aboutus',function(){
-    return View('aboutus');
-});
+// Route::get('/aboutus',function(){
+//     return View('aboutus');
+// });
 
-Route::get('/register',function(){
-    return View('register');
-});
+// Route::get('/register',function(){
+//     return View('register');
+// });
 ///////////////////////////////////////ROUTE PERAMETERS//////////////////////////////////////
 
 
@@ -118,3 +120,42 @@ Route::get('/register',function(){
         return" Alpha Numerics : ". $Name;
     })->whereAlphaNumeric('Name');
 
+///////////////////////////////////////////////////////////NAMED ROUTES ///////////////////////////////////////////////
+
+
+// Route::get('welcome',function(){
+//     return view('welcome');
+// });
+
+// Route::get('/about',function(){
+//     return view('aboutus');
+// })->name('about-us');
+
+// Route::get('/regis',function(){
+//     return view('register');
+// })->name('regist-name');
+
+////////////////////////////////////////////////////////////GROUP ROUTES /////////////////////////////
+
+Route::prefix('page')->group(function(){
+
+    Route::get('welcome',function(){
+        return view('welcome');
+    });
+    
+    Route::get('/about',function(){
+        return view('aboutus');
+    })->name('about-us');
+    
+    Route::get('/regis',function(){
+        return view('register');
+    })->name('regist-name');
+    
+});
+
+
+Route::get('/protected-page', function () {
+
+    // Route logic
+
+})->middleware(CheckRequiredHeader::class); 
