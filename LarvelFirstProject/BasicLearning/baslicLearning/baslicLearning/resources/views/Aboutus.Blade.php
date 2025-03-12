@@ -10,8 +10,8 @@
  
 </head>
 <body>  
-  <header class="container">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" style="display:flex;justify-content:space-between">
+  <header>
+    <div class="d-flex flex-column flex-md-row align-items-center p-2 px-md-4 mb-3 bg-white border-bottom box-shadow" style="display:flex;justify-content:space-between">
       <h5 class="my-0 mr-md-auto font-weight-bold">Uptake Infotech</h5>
       <nav class="my-2 d-flex">
         <a class="p-2 nav-link" href="{{ route('about-us') }}">About us</a>
@@ -19,7 +19,10 @@
         <a class="p-2 nav-link" href="#">Support</a>
         <a class="p-2 nav-link" href="#">Pricing</a>
       </nav>
-      <a class="btn btn-outline-primary" href="{{ route('regist-name') }}">Sign up</a>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <a class="btn " href="{{ route('regist-name') }}">Sign up</a>
+        <a class="btn" href="{{ route('login') }}">Login</a>
+        </div>
     </div>
     <div class="row">               
         <div class="content-column mt-5 col-lg-5 col-md-6 col-sm-12 order-2">
@@ -45,10 +48,10 @@
         </div>
        
         <!-- Image Column -->
-        <div class="image-column mt-5 col-lg-6 col-md-12 col-sm-12">
+        <div class="image-column align-items-center ml-5 mt-5 col-lg-6 col-md-12 col-sm-12"style="display:flex;justify-content:space-around;">
             <div class="inner-column wow fadeInLeft">
                 <figure class="image-1"><a href="#" class="lightbox-image" data-fancybox="images"><img src="https://i.ibb.co/QP6Nmpf/image-1-about.jpg" alt=""></a></figure>
-                <figure class="image-2"><a href="#" class="lightbox-image" data-fancybox="images"><img src="https://i.ibb.co/JvN0NVB/image-2-about.jpg" alt=""></a></figure>
+                <figure class="image-2"><a href="#" class="imag-fluid" data-fancybox="images"><img src="https://i.ibb.co/JvN0NVB/image-2-about.jpg" alt=""></a></figure>
             </div>
         </div>
     </div>

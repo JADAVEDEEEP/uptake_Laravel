@@ -1,13 +1,16 @@
 <?php
 
 use App\Facades\MyCustomFacade;
+use App\Http\Controllers\AuthenController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
+
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CheckRequiredHeader;
 use app\Test\Facades\TestFacades as FacadesTestFacades;
 use App\Test\StaticFacades;
 use App\TestFacades\TestFacades;
+use AuthenController as GlobalAuthenController;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
@@ -148,14 +151,29 @@ Route::prefix('page')->group(function(){
     })->name('about-us');
     
     Route::get('/regis',function(){
-        return view('register');
+        return view('auth.registration');
     })->name('regist-name');
+
+    Route::get('/Login',function(){
+        return view('auth.login');
+    })->name('login');
+
+   
     
 });
 
-
+//////////////////////////////////////////////////////MIIDDLEWARE/////////////////////////////////
+ 
 Route::get('/protected-page', function () {
-
-    // Route logic
-
 })->middleware(CheckRequiredHeader::class); 
+
+//////////////////////////////////////////////////////MIDDLEWARE EXECUTION /////////////
+Route::controller(AuthenController::class)->group(function(){
+    Route::get('/registration','registration')->middleware('alreadyLoggedIn');
+    Route::post('/registration-user','registerUser')->name('register-user');
+    Route::get('/login','login')->middleware('alreadyLoggedIn');
+    Route::post('/login-user','loginUser')->name('login-user');
+    Route::get('/dashboard','dashboard')->middleware('isLoggedIn');
+    Route::get('/logout','logout');
+});
+

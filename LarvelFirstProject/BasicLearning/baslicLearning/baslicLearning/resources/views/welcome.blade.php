@@ -23,8 +23,8 @@
   </head>
 
   <body>
-    <header class="container">
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow" style="display:flex;justify-content:space-between">
+    <header class="">
+    <div class="d-flex flex-column flex-lg-row align-items-center p-2 bg-white border-bottom box-shadow" style="display:flex;justify-content:space-between">
       <h5 class="my-0 mr-md-auto font-weight-bold">Uptake Infotech</h5>
       <nav class="my-2 d-flex">
         <a class="p-2 nav-link" href="{{ route('about-us') }}">About us</a>
@@ -32,15 +32,18 @@
         <a class="p-2 nav-link" href="#">Support</a>
         <a class="p-2 nav-link" href="#">Pricing</a>
       </nav>
-      <a class="btn btn-outline-primary" href="{{ route('regist-name') }}">Sign up</a>
+      <div class="btn-group" role="group" aria-label="Basic example">
+      <a class="btn " href="{{ route('regist-name') }}">Sign up</a>
+      <a class="btn" href="{{ route('login') }}">Login</a>
+      </div>
     </div>
 
     <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
       <h1 class="display-4">Pricing</h1>
-      <p class="lead">Quickly build an effective pricing table for your potential customers with this Bootstrap example. It's built with default Bootstrap components and utilities with little customization.</p>
+      <p class="lead flex-column">Quickly build an effective pricing table for your potential customers with this Bootstrap example.</p>
     </div>
 
-    <div class="container">
+    <div >
       <div class="card-deck mb-3 text-center">
         <div class="card mb-4 box-shadow">
           <div class="card-header">

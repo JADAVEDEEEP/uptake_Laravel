@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EnsureTokenIsValid
+class AlreadyLoggedIn
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,9 @@ class EnsureTokenIsValid
      */
     public function handle(Request $request, Closure $next): Response
     {
-       
-        echo"deep jadav is";
+        if(Session()->has('loginId') && (url('login') == $request->url() || url('registration') == $request->url())){
+            return back();
+        }
         return $next($request);
     }
 }
