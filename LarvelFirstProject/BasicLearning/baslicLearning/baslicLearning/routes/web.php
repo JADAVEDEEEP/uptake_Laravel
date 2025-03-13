@@ -3,6 +3,8 @@
 use App\Facades\MyCustomFacade;
 use App\Http\Controllers\AuthenController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ExecutionController;
+use App\Http\Controllers\LearningController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Middleware\Authenticate;
@@ -146,7 +148,7 @@ Route::prefix('page')->group(function(){
         return view('welcome');
     });
     
-    Route::get('/about',function(){
+    Route::get('/abou',function(){
         return view('aboutus');
     })->name('about-us');
     
@@ -177,3 +179,8 @@ Route::controller(AuthenController::class)->group(function(){
     Route::get('/logout','logout');
 });
 
+///////////////////////////////////////////////////CONTROLLER//////////////////////////
+
+Route::get('/raju/{id}', [LearningController::class, 'show']);
+
+Route::get('znmd/{id}',[ExecutionController::class,'bye']);

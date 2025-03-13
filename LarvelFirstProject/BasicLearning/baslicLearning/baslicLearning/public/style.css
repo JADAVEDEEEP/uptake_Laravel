@@ -265,3 +265,35 @@ transition: all 300ms ease;
 .about-section .image-column .video-link .link:hover{
 background-color: #191e34;
 }
+
+.navbar {
+	display: flex;
+	justify-content: center;
+	margin-top: 50px;
+	background: #333;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  .navbar ul {
+	display: flex;
+	list-style: none;
+	padding: 0;
+  }
+
+  .nav-item {
+	position: relative;
+	padding: 10px 20px;
+	margin: 0 10px;
+	color: rgb(104, 104, 104);
+	font-size: 14px;
+	font-weight: normal;
+	cursor: pointer;
+  }
+
+  .nav-item:hover {
+	transform: translateY(-5px) scale(1.1);
+	
+  }
+  

@@ -10,8 +10,8 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-col-md-offset-4">
-                <h2>Registration</h2>
-                <form action="{{route('register-user')}}" method="post" enctype="multipart/form-data">
+                <h2 style="font-family: Arial, Helvetica, sans-serif">Registration</h2>
+                <form action="{{route('register-user')}}" method="post" enctype="multipart/form-data" class="mt-5">
                     @csrf
                     @if (Session::has('success'))
                         <div class="alert alert-success">
@@ -24,7 +24,7 @@
                     </div>
                 @endif
                     <div class="form-group">
-                        <label for="name">Full Name</label>
+                        <label for="name" style="font-family: Arial, Helvetica, sans-serif">Full Name</label>
                         <input type="text" name="name" class="form-control">
                         <span class="text-danger">
                             @error('name')
