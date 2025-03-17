@@ -5,6 +5,9 @@ use App\Http\Controllers\AuthenController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ExecutionController;
 use App\Http\Controllers\LearningController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\ProvisionServer;
+use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UserController;
 
 use App\Http\Middleware\Authenticate;
@@ -47,9 +50,9 @@ Route::get('/home',function(){
 
 ///////////////////////////////////////////USER ROUTE USER METHODS/////////////////////////////
 
-Route::get('/user', [UserController::class, 'get']);
+// Route::get('/user', [UserController::class, 'get']);
 
-Route::post('/user', [UserController::class, 'post']);
+// Route::post('/user', [UserController::class, 'post']);
 
 Route::get('/users',[Controller::class,'store']);
 
@@ -184,3 +187,32 @@ Route::controller(AuthenController::class)->group(function(){
 Route::get('/raju/{id}', [LearningController::class, 'show']);
 
 Route::get('znmd/{id}',[ExecutionController::class,'bye']);
+
+///////////////////////////////////////////INVOKE CONTROLLER ////////////////////////////
+
+Route::get('dif3/{id}/{Name}',ProvisionServer::class);
+
+///////////////////////////////////////////////INVOKE CONTROLLER WITH GROUP ///////////////////////
+
+Route::controller(ProvisionServer::class)->group((function(){
+    Route::get('/dif/{id}','__invoke')->whereNumber('id');
+
+    Route::get('/dif2/{Name}','post')->whereAlpha('Name');
+}));
+
+
+////////////////////////////////////////////CONTROLLER WITH THE MIDDALWARE AND ROUTES ///////////////
+
+// Route::controller(AuthenController::class)->group(function(){
+//     Route::get('/registration','registration')->middleware('alreadyLoggedIn');
+//     Route::post('/registration-user','registerUser')->name('register-user');
+//     Route::get('/login','login')->middleware('alreadyLoggedIn');
+//     Route::post('/login-user','loginUser')->name('login-user');
+//     Route::get('/dashboard','dashboard')->middleware('isLoggedIn');
+//     Route::get('/logout','logout');
+// });
+
+/////////////////////////////////////////REQUEST LARAVEL///////////////////////////////////
+
+Route::post('/LoginUser',[RequestController::class,'post']);
+Route::view('form','LoginUser');
