@@ -9,15 +9,17 @@ use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProvisionServer;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ViewController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CheckRequiredHeader;
+use App\Models\User;
 use app\Test\Facades\TestFacades as FacadesTestFacades;
 use App\Test\StaticFacades;
 use App\TestFacades\TestFacades;
 use AuthenController as GlobalAuthenController;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
@@ -214,5 +216,61 @@ Route::controller(ProvisionServer::class)->group((function(){
 
 /////////////////////////////////////////REQUEST LARAVEL///////////////////////////////////
 
+// Route::post('/LoginUser',[RequestController::class,'post']);
+// Route::view('form','LoginUser');
+
+//WITH DATABASE
+
 Route::post('/LoginUser',[RequestController::class,'post']);
-Route::view('form','LoginUser');
+
+Route::get('/LoginUser',[RequestController::class,'index']);
+
+
+///////////////////////////////////////RESPONCES LARAVEL////////////////////////////////////////
+
+Route::get('/Responce',function(){
+    return "hello world";//this is the HTTP Generated responces from the Browser
+});
+
+Route::get('/Responce',function(){
+    return [1,2,3,4,5,6,7];//here we send the responce in the Array fromat 
+});
+Route::get('/homeies', function () {
+    return response('Hello World', 200)
+                  ->header('Content-Type', 'text/plain');
+});
+//Eloquent Models and Collections
+Route::get('/user1/{user}',function(User $user){
+    return response($user);
+});
+//Responces with coockies 
+Route::get('/cookie',function() {
+    return response("Hello", 200)->header('Content-Type', 'text/html')
+       ->withcookie('name','Virat Gandhi');
+       
+ });
+ Cookie::expire('name');
+
+ //JSON RESPONCES 
+ Route::get('/fasa',function(){
+    return response()->json([
+        'name' => 'Abigail',
+        'state' => 'CA',
+    ]);
+ });
+
+ ///////////////////////////////////////////VIEWS LARAVEL/////////////////////////////////
+
+ Route::view('/home','welcome');
+
+ Route::controller(ViewController::class)->group((function(){
+    Route::get('/home2/{name}','view')->whereAlphaNumeric('name');
+    Route::get('home3','view_two');
+ }
+));
+
+/////////////////////////////////////////BLADE TEMPLATES////////////////////////////
+
+Route::get('/jason', function () {
+    return view('welcome', ['name' => 'Jay siya ram']);
+});
