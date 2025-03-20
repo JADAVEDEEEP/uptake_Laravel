@@ -10,7 +10,7 @@
     <div class="container mt-5">
         <div class="row mt-5">
             <div class="col-md-col-md-offset-4">
-                {{$user}}
+                {{-- {{$user}} --}}
                 <h2>Login</h2>
                 <form action="{{route('login-user')}}" method="post" enctype="multipart/form-data">
                     @csrf

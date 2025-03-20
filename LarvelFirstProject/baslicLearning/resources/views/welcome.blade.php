@@ -26,7 +26,7 @@
 
   <body>
     {{-- <h1>Hello, {{ $name }}.</h1> --}}
-    
+    @include('home',['page'=>'page'])
     <div class="jon d-flex bg-dark flex-column flex-lg-row align-items-center  bg-white border-bottom box-shadow" style="display:flex;justify-content:space-between">
       <img src="{{ asset('Untitled design.svg') }}" alt="My Happy SVG" width="130" height="130"/>
       <nav class="my-2 d-flex ">

@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class Controller extends BaseController
 {
-    public function doAwesome(MyCustomService $my_custom){
+    public function show(User $user){
 
-      $my_custom->doSomething();
+      $user=User::all();
+        return ['result'=>$user];
     }
 }

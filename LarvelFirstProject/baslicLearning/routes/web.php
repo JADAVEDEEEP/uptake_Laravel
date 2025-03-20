@@ -8,6 +8,7 @@ use App\Http\Controllers\LearningController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProvisionServer;
 use App\Http\Controllers\RequestController;
+use App\Http\Controllers\Session;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ViewController;
 use App\Http\Middleware\Authenticate;
@@ -265,7 +266,7 @@ Route::get('/cookie',function() {
 
  Route::controller(ViewController::class)->group((function(){
     Route::get('/home2/{name}','view')->whereAlpha('name');
-    Route::get('home3','view_two');
+    Route::get('home3','view_two')->middleware('check');
  }
 ));
 
@@ -282,3 +283,24 @@ Route::get('/home',function(){
 Route::get('/rise',function(){
     return view('PhpJavscript');
 });
+
+Route::get('/deep',function(){
+    return view('welcome');
+});
+
+/////////////////////////////////////////URL GENERATION ////////////////////////////
+
+
+Route::get('/url',function(){
+    return view('Url');
+});
+
+Route::get('/url2',function(){
+    return view('url2');
+});
+
+/////////////////////////////////////////SESSION  ////////////////////////////
+Route::view('login2','LoginSession');
+Route::view('profile2','profile');
+
+Route::post('login2',[Session::class,'login']);

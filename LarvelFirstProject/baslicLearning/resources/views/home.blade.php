@@ -7,10 +7,11 @@
     <title>Document</title>
 </head>
 <body>
+  {{ $page }}
     @extends('welcome')
     @section('content')
     <div class="container">
-
+    
     <div class="b-example-divider"></div>
   
     <div class="px-4 pt-5 my-5 text-center border-bottom">
