@@ -26,4 +26,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::resource('member',PhotoController::class);
 
 
-    Route::get('/Get',[Controller::class,'show']);
+    Route::get('/get',[Controller::class,'show']);

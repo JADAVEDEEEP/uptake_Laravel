@@ -10,13 +10,16 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Client\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Request as FacadesRequest;
 
 class Controller extends BaseController
 {
     public function show(User $user){
-
-      $user=User::all();
+      $user = DB::delete('delete from users');
         return ['result'=>$user];
+        
     }
+    
 }

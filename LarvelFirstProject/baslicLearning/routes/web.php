@@ -7,6 +7,7 @@ use App\Http\Controllers\ExecutionController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProvisionServer;
+use App\Http\Controllers\Queries;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\Session;
 use App\Http\Controllers\UserController;
@@ -21,6 +22,7 @@ use AuthenController as GlobalAuthenController;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 
@@ -299,8 +301,26 @@ Route::get('/url2',function(){
     return view('url2');
 });
 
-/////////////////////////////////////////SESSION  ////////////////////////////
+/////////////////////////////////////////SESSION WITH VALIDATION  ////////////////////////////
+
 Route::view('login2','LoginSession');
 Route::view('profile2','profile');
 
 Route::post('login2',[Session::class,'login']);
+
+////////////////////////////////////////////LOGS//////////////////////////////////
+Route::get('jaaa',[Controller::class,'show']);
+// Log::emergency($message);
+// Log::alert($message);
+// Log::critical($message); 
+// Log::error($message);
+// Log::warning($message);
+// Log::notice($message);
+// Log::info($message);
+// Log::debug($message);
+
+/////////////////////////////////QUERY BUILDER /////////////////////////
+Route::controller(Queries::class)->group(function(){
+    Route::get('/queries','quries');
+        return view('queries');
+    });

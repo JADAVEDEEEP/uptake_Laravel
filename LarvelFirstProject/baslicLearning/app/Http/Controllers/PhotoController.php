@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 //API REFERANCE : http://localhost:8000/api/member
 
@@ -63,8 +64,9 @@ class PhotoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(User $user)
     {
-        return  ["$id : Numbers Member Deleted"];
+        $user = DB::delete('delete from users');
+        return ['result'=>$user];
     }
 }
