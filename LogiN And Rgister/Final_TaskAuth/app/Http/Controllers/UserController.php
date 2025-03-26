@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Spatie\Permission\Contracts\Role;
+use Spatie\Permission\Models\Role; // Import the Role model from Spatie package
 
 class UserController extends Controller
 {
     public function index()
     {
         $users = User::latest()->paginate(10);
-        return view('users.list',['users'=>$users]);
+        return view('users.list', ['users' => $users]);
     }
 
     /**
@@ -20,7 +20,10 @@ class UserController extends Controller
      */
     public function create()
     {
-       
+        // Get all roles available to assign to the user
+        $roles = Role::all();
+        return view('users.create', ['roles' => $roles]);
+        dd($roles);
     }
 
     /**
@@ -28,7 +31,30 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+          'roles' => 'required|array', // Validate that roles is an array
+        'roles.*' => 'exists:roles,id', // Ensure each role ID exists in the roles tablehe role is valid
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('user.create')->withInput()->withErrors($validator);
+        }
+
+        // Create the user
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password); // Hash the password
+        $user->save();
+
+        // Assign the role to the user
+        $user->assignRole($request->role);
+
+        return redirect()->route('user.index');
     }
 
     /**
@@ -44,34 +70,43 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        
-        $users = User::findorFail($id);
-       
+        $user = User::findOrFail($id);
+        // $roles = Role::all(); // Get all available roles
+        // $hasRoles = $user->roles->pluck('id')->toArray(); // Get the current roles for the user
 
-        $hasroles=$users->roles->pluck('id');
-        return view('users.edit',['users'=>$users,
-     'hasroles'=>$hasroles]);
+        return view('users.edit', [
+            'user' => $user,
+            // 'roles' => $roles,
+            // 'hasRoles' => $hasRoles
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,  $id)
+    public function update(Request $request, $id)
     {
-        $users = User::findorFail($id);
-        $validator=Validator::make($request->all(),[
-            'name'=>'required|min:3',
-            'email'=>'required|email|unique:users,email,'.$id.',id'
+        $user = User::findOrFail($id);
+
+        // Validate the incoming request data
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:3',
+            'email' => 'required|email|unique:users,email,' . $id,
+            // 'role' => 'required|exists:roles,id', // Ensure the role is valid
         ]);
-        if($validator->fails()){
-            return redirect()->route('user.edit',$id)->withInput()->withErrors($validator);
+
+        if ($validator->fails()) {
+            return redirect()->route('user.edit', $id)->withInput()->withErrors($validator);
         }
-        $users->name=$request->name;
-        $users->email=$request->email;
-        $users->save();
-    
-        $users->syncRoles($request->role);
-     
+
+        // Update the user information
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+
+        // Sync roles for the user (this will remove old roles and assign the new one)
+        // $user->syncRoles($request->role);
+
         return redirect()->route('user.index');
     }
 

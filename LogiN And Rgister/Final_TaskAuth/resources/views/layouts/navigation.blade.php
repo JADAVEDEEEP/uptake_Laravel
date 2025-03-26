@@ -32,11 +32,28 @@
                             {{ __('Size') }}
                         </x-nav-link>
                     </div>
-
-                
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('product.index')" :active="request()->routeIs('dashboard')">
+                            {{ __('Products') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('category.index')" :active="request()->routeIs('dashboard')">
+                            {{ __('Category') }}
+                        </x-nav-link>
+                    </div>
             </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
 
-
+                <x-dropdown-link :href="route('logout')"
+                        onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                    {{ __('Log Out') }}
+                </x-dropdown-link>
+            </form>
+            
+            
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
@@ -104,16 +121,7 @@
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                            onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
+               
         </div>
     </div>
 </nav>

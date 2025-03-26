@@ -16,8 +16,8 @@
                  @csrf
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('size_name')}}" type="text" name="size_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
-                        @error('size_name')
+                        <input value="{{ old('Size_name')}}" type="text" name="Size_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
+                        @error('Size_name')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror
                     </div>

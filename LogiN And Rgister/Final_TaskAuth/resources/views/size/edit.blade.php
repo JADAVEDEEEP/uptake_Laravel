@@ -12,11 +12,11 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                  <form action="{{ route('size.update',$size->size_id) }} " method="post">
+                  <form action="{{ route('size.update',$size->Size_id) }} " method="post">
                  @csrf
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('size_name',$size->size_name)}}" type="text" name="size_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
+                        <input value="{{ old('size_name',$size->Size_name)}}" type="text" name="Size_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
                         @error('name')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror

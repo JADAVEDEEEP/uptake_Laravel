@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between"> 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Users') }}
+                {{ __('Category') }}
             </h2>
-            <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Create</a>
+            <a href="{{ route('category.create') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Create</a>
         </div>
     </x-slot>
 
@@ -23,7 +23,7 @@
             </div>
             @endif
             --}}
-            <table class="w-full">
+            <table class="w-full ">
                 <thead class="bg-grey-50">
                     <tr>
                         <th>id</th>
@@ -33,12 +33,12 @@
                         <th>Actions</th>
                     </tr>
                 </thead>
-                <tbody class="bg-white text-center">
-                    @foreach($users as $user)
+                <tbody class="bg-white text-center py-3">
+                    @foreach($category as $cat)
                         <tr class="border-b">
-                            <td class="px-6 py-3 ">{{$user->id}}</td>
-                            <td class="px-6 py-3 ">{{$user->name}}</td>
-                            <td class="px-6 py-3 ">{{$user->email}}</td>
+                            <td class="py-3 ">{{$cat->Category_id}}</td>
+                            <td class=" py-3">{{$cat->Category_name}}</td>
+                            <td class="py-3 ">{{$cat->Status}}</td>
                             {{-- Displaying roles --}}
                             {{-- <td class="px-6 py-3 text-left">
                                 @foreach($user->roles as $roles) 
@@ -48,9 +48,14 @@
                                    
                              
                             
-                            <td class="px-6 py-3 ">{{$user->created_at}}</td>
-                            <td class="px-6 py-3 ">
-                                <a href="{{ route('user.edit', $user->id) }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Edit</a>
+                            <td class="">{{$cat->created_at}}</td>
+                            <td class="">
+                                <a href="{{ route('category.edit', $cat->Category_id) }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Edit</a>
+                                <form action="{{ route('category.destroy', $cat->Category_id) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

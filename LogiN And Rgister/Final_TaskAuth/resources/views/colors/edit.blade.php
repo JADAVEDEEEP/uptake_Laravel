@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
               users/Edit
             </h2>
-            <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
+            <a href="{{ route('color.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
         </div>
     </x-slot>
 
@@ -12,12 +12,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                  <form action="{{ route('color.update',$color->color_id) }} " method="post">
+                    <form action="{{ route('color.update', $color->Color_id) }}" method="POST" enctype="multipart/form-data">
                  @csrf
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('name',$color->name)}}" type="text" name="color_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
-                        @error('name')
+                        <input value="{{ old('Color_name',$color->Color_name)}}" type="text" name="color_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
+                        @error('Color_name')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror
                     </div>

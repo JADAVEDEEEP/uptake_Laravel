@@ -1,0 +1,43 @@
+<!-- resources/views/products/create.blade.php -->
+
+<x-app-layout>
+    <x-slot name="header">
+        <div class="flex justify-between"> 
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+              Create Product
+            </h2>
+            <a href="{{ route('category.index') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 py-3">Back</a>
+        </div>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <label for="Category_name" class="font-medium text-lg">Product Name</label>
+                        <div class="my-3">
+                            <input type="text" name="Category_name" value="{{ old('Category_name') }}" class="border-gray-300 shadow-sm w-1/2 p-2 rounded-lg" placeholder="Enter category Name">
+                            @error('Category_name')
+                                <p class="text-red-400 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        {{-- <label for="Status" class="font-medium text-lg">Status</label>
+                        <div class="my-3">
+                            <input type="number" name="Status" value="{{ old('Status') }}" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter status">
+                            @error('Status')
+                                <p class="text-red-400 font-medium">{{ $message }}</p>
+                            @enderror
+                        </div> --}}
+
+                        
+
+                        <button class="bg-slate-700 text-sm rounded-md text-white px-5 py-3" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>

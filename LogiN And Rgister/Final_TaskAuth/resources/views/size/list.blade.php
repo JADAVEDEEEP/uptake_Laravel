@@ -4,7 +4,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Users') }}
         </h2>
-        <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Create </a>
+        <a href="{{ route('size.create') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Create </a>
     </div>
     </x-slot>
 
@@ -22,24 +22,31 @@
                     @endif
                 </div> --}}
                 <table class="w-full">
-                    <thead class="bg-grey-50">
+                    <thead class="bg-grey-50 ">
                         <tr>
-                        <th>id</th>
-                        <th>Name</th>
-                        <th>created_At</th>
-                        <th>Actions</th>
+                        <th class="py-3">id</th>
+                        <th class="py-3">Name</th>
+                        <th class="py-3">created_At</th>
+                        <th class="py-3">Actions</th>
                         </tr>
                     </thead>
-                     <tbody class="bg-white">
-                       @foreach($size as $size)
+                     <tbody class="bg-white text-center ">
+                       @foreach($size as $sizes)
                        <tr class="border-b">
-                        <td class="px-6 py3 text-left">{{$size->size_id}}</td>
-                        <td class="px-6 py3 text-left">{{$size->size_name}}</td>
+                        <td class=" py-3 ">{{$sizes->Size_id}}</td>
+                        <td class=" py-3">{{$sizes->Size_name}}</td>
                          
                          {{-- <td class="px-6 py3 text-left">{{$size->roles->pluck('name')->implode(', ')}}</td> --}}
-                        <td class="px-6 py3 text-left">{{$size->created_at}}</td>
-                         <td class="px-6 py3 text-left"><a href="{{ route('size.edit',$size->size_id) }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Edit </a>
-                            {{-- <a href="{{ route('users.index') }}" class="bg-red-700 text-xl2 rounded-md  text-white px-5 px-3">delete </a>  --}}
+                        <td class="py-3 ">{{$sizes->created_at}}</td>
+                        <div class="">
+                         <td class="px-6 py-3 flex gap-3 justify-center ">
+                            <a href="{{ route('size.edit',$sizes->Size_id) }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Edit </a> 
+                            <form action="{{ route('size.destroy', $sizes->Size_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this size?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="bg-red-700 text-xl2 rounded-md text-white px-5 px-3">Delete</button>
+                            </form>
+                        </div>
                         </td>
                        </tr>
                         @endforeach
