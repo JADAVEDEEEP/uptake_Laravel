@@ -43,24 +43,23 @@ class CategoryController extends Controller
         return view('category.edit', compact('category', 'categories'));
     }
 
-    // public function update(Request $request, $Category_id)
-    // {
-    //     $request->validate([
-    //         'Category_name' => 'required|string|max:255',
-    //         'Status'=>'required',
-           
-    //     ]);
-
-    //     $Category = categorie::findOrFail($Category_id);
-    //     $Category->Category_name = $request->Category_name;
-    //     $Category->Status = $request->Status;
-    //     // $product->Product_image = $request->file('Product_image') ? $request->file('Product_image')->store('products') : $product->Product_image;
-    //     // $product->Price = $request->Price;
-    //     $Category->save();
-
-    //     return redirect()->route('product.index')->with('success', 'Product updated successfully!');
-    // }
-
+    public function update(Request $request, $Category_id)
+    {
+        
+        $request->validate([
+            'Category_name' => 'required|string|max:255',
+            'Status' => 'required',
+        ]);
+    
+      
+        $Category = categorie::findOrFail($Category_id);
+        $Category->Category_name = $request->Category_name;
+        $Category->Status = $request->Status;
+        $Category->save();
+    
+        return redirect()->route('product.index')->with('success', 'Product updated successfully!');
+    }
+    
     public function destroy($Category_id)
     {
         $product = categorie::findOrFail($Category_id);

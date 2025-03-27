@@ -4,7 +4,9 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Category') }}
             </h2>
+            @can('create categories')
             <a href="{{ route('category.create') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Create</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -23,6 +25,7 @@
             </div>
             @endif
             --}}
+            @can('view categories')
             <table class="w-full ">
                 <thead class="bg-grey-50">
                     <tr>
@@ -45,26 +48,24 @@
                                     <span>{{ $roles->role_id }}</span>
                                     @if (!$loop->last)
                                         <span>, </span> {{-- Adds a comma between role names if there are multiple --}}
-                                   
-                             
+                            </td>
                             
                             <td class="">{{$cat->created_at}}</td>
                             <td class="">
+                                @can('edit categories')
                                 <a href="{{ route('category.edit', $cat->Category_id) }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Edit</a>
                                 <form action="{{ route('category.destroy', $cat->Category_id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
                                 </form>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            @endcan
         </div>
     </div>
-
-    <x-slot name="script">
-        {{-- Optionally add JS scripts if needed --}}
-    </x-slot>
 </x-app-layout>

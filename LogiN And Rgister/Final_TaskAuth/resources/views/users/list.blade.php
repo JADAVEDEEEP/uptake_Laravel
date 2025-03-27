@@ -4,8 +4,10 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                 {{ __('Users') }}
             </h2>
-            <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Create</a>
+            @can('create users')
+            {{-- <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Create</a> --}}
         </div>
+        @endcan
     </x-slot>
 
     <div class="py-12">
@@ -50,8 +52,10 @@
                             
                             <td class="px-6 py-3 ">{{$user->created_at}}</td>
                             <td class="px-6 py-3 ">
+                                @can('edit users')
                                 <a href="{{ route('user.edit', $user->id) }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Edit</a>
                             </td>
+                            @endcan
                         </tr>
                     @endforeach
                 </tbody>

@@ -20,7 +20,7 @@ class products extends Model
         'created_at'
     ];
     public function category()
-{
-    return $this->belongsTo(categorie::class, 'category_id');
-}
+    {
+        return $this->belongsTo(Categorie::class, 'category_id'); // Ensure 'category_id' is the correct foreign key
+    }
 }

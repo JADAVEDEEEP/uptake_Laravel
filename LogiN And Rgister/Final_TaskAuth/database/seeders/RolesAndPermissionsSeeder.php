@@ -5,23 +5,48 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use Illuminate\Support\Facades\Artisan;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
     public function run()
     {
-        // Clear the cache
-        Artisan::call('cache:clear');
-        // Create permissions
-        Permission::create(['name' => 'edit articles']);
-        Permission::create(['name' => 'delete articles']);
-        Permission::create(['name' => 'publish articles']);
-        Permission::create(['name' => 'unpublish articles']);
+        $permissions = [
+            'view users',
+            'create users',
+            'edit users',
+            'delete users',
+            'view products',
+            'create products',
+            'edit products',
+            'delete products',
+            'view categories',
+            'create categories',
+            'edit categories',
+            'delete categories',
+            'view sizes',
+            'create sizes',
+            'edit sizes',
+            'delete sizes',
+            'view colors',
+            'create colors',
+            'edit colors',
+            'delete colors',
+        ];
+
+        
+        foreach ($permissions as $permission) {
+            Permission::create(['name' => $permission]);
+        }
 
        
+        $superAdminRole = Role::create(['name' => 'super-admin']);
+        $subAdminRole = Role::create(['name' => 'sub-admin']);
 
-        $role = Role::create(['name' => 'super Admin']);
-        $role->givePermissionTo(Permission::all());
+        $superAdminRole->givePermissionTo(Permission::all());
+
+        
+        $subAdminRole->givePermissionTo([
+            'view users', 'view products', 'view categories', 'view sizes', 'view colors'
+        ]);
     }
 }

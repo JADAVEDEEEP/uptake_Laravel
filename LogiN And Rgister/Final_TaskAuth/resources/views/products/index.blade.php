@@ -1,12 +1,12 @@
-<!-- resources/views/products/index.blade.php -->
-
 <x-app-layout>
     <x-slot name="header">
         <div class="flex justify-between align-middle"> 
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-          Product List
-        </h2>
-        <a href="{{ route('product.create') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 py-3">Add Product</a>
+            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+              Product List
+            </h2>
+            @can('create products')  <!-- Check if the user has permission to create products -->
+                <a href="{{ route('product.create') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 py-3">Add Product</a>
+            @endcan
         </div>
     </x-slot>
 
@@ -21,10 +21,10 @@
                                 <th class="px-4 py-2 border">Product Name</th>
                                 <th class="px-4 py-2 border">Price</th>
                                 <th class="px-4 py-2 border">Image</th>
-                                <th class="px-4 py-2 border">Actions</th>
+                                @can('edit products')  <!-- Show 'Actions' column only if the user has edit permission -->
+                                    <th class="px-4 py-2 border">Actions</th>
+                                @endcan
                             </tr>
-                                {{-- <th class="px-4 py-2 border">Category</th> --}}
-                                
                         </thead>
                         <tbody>
                             @foreach($products as $product)
@@ -32,27 +32,28 @@
                                     <td class="px-4 py-2 border">{{ $product->Product_id }}</td>
                                     <td class="px-4 py-2 border">{{ $product->Product_name }}</td>
                                     <td class="px-4 py-2 border">{{ $product->Price }}</td>
-                                    <td class="px-4 py-2 border">{{ $product->product_image}}</td>
-                                    {{-- <td class="px-4 py-2 border"> --}}
-                                        <!-- Check if category exists and display the category name -->
-                                        {{-- {{ $product->category ? $product->category->category_name : 'No Category' }} --}}
-                                    </td>
                                     <td class="px-4 py-2 border">
-                                        <a href="{{ route('product.edit', $product->Product_id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-md">Edit</a>
-                                        <form action="{{ route('product.destroy', $product->Product_id) }}" method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
-                                        </form>
+                                        <img src="{{ asset('storage/' . $product->Product_image) }}" alt="Product Image" class="w-16 h-16 object-cover">
                                     </td>
+                                    @can('edit products') 
+                                        <td class="px-4 py-2 border">
+                                            <a href="{{ route('product.edit', $product->Product_id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-md">Edit</a>
+                                            <form action="{{ route('product.destroy', $product->Product_id) }}" method="POST" style="display:inline-block;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
+                                            </form>
+                                        </td>
+                                    @endcan
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
 
-                    <div class="mt-3">
+                    {{-- <div class="mt-3">
                         {{ $products->links() }}
-                    </div>
+                        @
+                    </div> --}}
                 </div>
             </div>
         </div>

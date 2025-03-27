@@ -4,8 +4,10 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Users') }}
         </h2>
+        @can('create size')
         <a href="{{ route('size.create') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Create </a>
     </div>
+    @endcan
     </x-slot>
 
     <div class="py-12">
@@ -39,6 +41,7 @@
                          {{-- <td class="px-6 py3 text-left">{{$size->roles->pluck('name')->implode(', ')}}</td> --}}
                         <td class="py-3 ">{{$sizes->created_at}}</td>
                         <div class="">
+                            @can('edit size')
                          <td class="px-6 py-3 flex gap-3 justify-center ">
                             <a href="{{ route('size.edit',$sizes->Size_id) }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Edit </a> 
                             <form action="{{ route('size.destroy', $sizes->Size_id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this size?');">
@@ -47,6 +50,7 @@
                                 <button type="submit" class="bg-red-700 text-xl2 rounded-md text-white px-5 px-3">Delete</button>
                             </form>
                         </div>
+                        @endcan
                         </td>
                        </tr>
                         @endforeach

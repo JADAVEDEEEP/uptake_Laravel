@@ -5,8 +5,10 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SizeController;
+use App\Http\Controllers\SKUController;
 use App\Http\Controllers\UserController;
 use App\Models\categorie;
+use App\Models\SKU;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/color', [ColorController::class, 'store'])->name('color.store');
     Route::get('/color/{id}/edit', [ColorController::class, 'edit'])->name('color.edit');
     Route::post('/color/{id}', [ColorController::class, 'update'])->name('color.update');
+    Route::delete('/color/{id}', [ColorController::class, 'destroy'])->name('color.destroy');
 
     
     Route::get('/size/create', [SizeController::class, 'create'])->name('size.create');
@@ -70,8 +73,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
     Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
     Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/category/id}', [CategoryController::class, 'update'])->name('category.update');
+    Route::post('category/{Category_id}', [CategoryController::class, 'update'])->name('category.update');
     Route::delete('/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
+
+
+
+// SKU Routes
+Route::get('/sku/create', [SKUController::class, 'create'])->name('skus.create');
+Route::get('/sku', [SKUController::class, 'index'])->name('skus.index');
+Route::post('/sku', [SKUController::class, 'store'])->name('skus.store');
+Route::get('/sku/{id}/edit', [SKUController::class, 'edit'])->name('skus.edit');
+Route::post('/sku/{id}', [SKUController::class, 'update'])->name('skus.update');
+Route::delete('/sku/{id}', [SKUController::class, 'destroy'])->name('skus.destroy');
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class);
+});
 
 });
 

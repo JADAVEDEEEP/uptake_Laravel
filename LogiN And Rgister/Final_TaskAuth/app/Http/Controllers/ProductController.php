@@ -11,7 +11,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = products::latest()->paginate(25);
+        $products = products::with('category')->latest()->paginate(25);
+
         return view('products.index', compact('products'));
     }
 
@@ -23,20 +24,26 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
+        // Validate the incoming request
         $request->validate([
             'Product_name' => 'required|string|max:255',
-            'Product_image' => 'nullable|image',
             'Price' => 'required|numeric',
+            'Category_id' => 'required|exists:categories,Category_id', // Validate that category exists
+            'Product_image' => 'nullable|image',
         ]);
-
+    
+        // Create a new product instance and store the data
         $product = new products();
         $product->Product_name = $request->Product_name;
-        $product->Product_image = $request->file('Product_image') ? $request->file('Product_image')->store('products') : null;
         $product->Price = $request->Price;
+        $product->Category_id = $request->Category_id; // Store selected category_id
+        $product->Product_image = $request->file('Product_image') ? $request->file('Product_image')->store('products') : null; // Store image if uploaded
         $product->save();
-
+    
+        // Redirect to the product index with a success message
         return redirect()->route('product.index')->with('success', 'Product created successfully!');
     }
+    
 
     public function edit($Product_id)
     {

@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('user.index')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('dashboard')">
                         {{ __('Users') }}
                     </x-nav-link>
                 </div>
@@ -43,7 +43,7 @@
                         </x-nav-link>
                     </div>
             </div>
-            <form method="POST" action="{{ route('logout') }}">
+            <form method="POST" action="{{ route('logout') }} " class="py-4 text-left">
                 @csrf
 
                 <x-dropdown-link :href="route('logout')"

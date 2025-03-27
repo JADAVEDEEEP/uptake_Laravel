@@ -14,6 +14,6 @@ class categorie extends Model
 
     public function products()
     {
-        return $this->hasMany(products::class, 'category_id'); // Defines the inverse relationship
+        return $this->hasMany(products::class, 'category_id'); // Ensure 'category_id' is the correct foreign key in the products table
     }
 }
