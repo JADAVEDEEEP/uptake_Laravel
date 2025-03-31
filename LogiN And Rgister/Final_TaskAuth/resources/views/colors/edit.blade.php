@@ -16,7 +16,7 @@
                  @csrf
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('Color_name',$color->Color_name)}}" type="text" name="Color_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
+                        <input value="{{ old('Color_name',$color->Color_name)}}" type="text" name="Color_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Color Name">
                         @error('Color_name')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror

@@ -5,7 +5,7 @@
                 {{ __('Category') }}
             </h2>
             @can('create categories')
-            <a href="{{ route('category.create') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Create</a>
+          
             @endcan
         </div>
     </x-slot>
@@ -50,14 +50,15 @@
                                         <span>, </span> {{-- Adds a comma between role names if there are multiple --}}
                             </td>
                             
-                            <td class="">{{$cat->created_at}}</td>
+                            <td class="">{{$cat->created_at->format('d M, Y')}}</td>
                             <td class="">
                                 @can('edit categories')
-                                <a href="{{ route('category.edit', $cat->Category_id) }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 px-3">Edit</a>
+                                <a href="{{ route('category.create') }}" class="bg-green-700  rounded-md text-white  px-5 py-2">Create</a>
+                                <a href="{{ route('category.edit', $cat->Category_id) }}" class="bg-yellow-700 text-xl2 rounded-md text-white px-5 py-2">Edit</a>
                                 <form action="{{ route('category.destroy', $cat->Category_id) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
+                                    <button type="submit" class="bg-red-500 text-white px-5 py-2 rounded-md">Delete</button>
                                 </form>
                                 @endcan
                             </td>

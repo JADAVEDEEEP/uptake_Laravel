@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Colors;
+use App\Models\Products;
+use App\Models\Size;
 use App\Models\SKU;
 use Illuminate\Http\Request;
 
@@ -9,59 +12,81 @@ class SKUController extends Controller
 {
     public function index()
     {
-        $skus = SKU::all();  // You can paginate if needed: SKU::paginate(10);
+        $skus = SKU::with('products', 'size', 'colors')->get();
         return view('skus.index', compact('skus'));
     }
 
-    // Show the form for creating a new SKU
     public function create()
     {
-        return view('skus.create');
+        $products = Products::all();
+        $sizes = Size::all();
+        $colors = Colors::all();
+        return view('skus.create', compact('products', 'sizes', 'colors'));
     }
 
-    // Store a newly created SKU in the database
     public function store(Request $request)
     {
         $request->validate([
             'Product_id' => 'required|integer',
             'Size_id' => 'nullable|integer',
             'Color_id' => 'nullable|integer',
-            'Price' => 'nullable|numeric',
-            'Quantity' => 'nullable|integer',
+            'Quantity' => 'required|integer|min:1',
             'SKUCode' => 'required|string|unique:skus,SKUCode',
         ]);
 
-        SKU::create($request->all());
+       
+        $pricePerItem = 100;
+        $calculatedPrice = $request->Quantity * $pricePerItem;
+
+        SKU::create([
+            'Product_id' => $request->Product_id,
+            'Size_id' => $request->Size_id,
+            'Color_id' => $request->Color_id,
+            'Quantity' => $request->Quantity,
+            'SKUCode' => $request->SKUCode,
+            'Price' => $calculatedPrice,
+        ]);
 
         return redirect()->route('skus.index')->with('success', 'SKU created successfully!');
     }
 
-    // Show the form for editing the specified SKU
     public function edit($id)
     {
         $sku = SKU::findOrFail($id);
-        return view('skus.edit', compact('sku'));
+        $products = Products::all();
+        $sizes = Size::all();
+        $colors = Colors::all();
+        return view('skus.edit', compact('sku', 'products', 'sizes', 'colors'));
     }
 
-    // Update the specified SKU in the database
     public function update(Request $request, $id)
     {
         $request->validate([
             'Product_id' => 'required|integer',
             'Size_id' => 'nullable|integer',
             'Color_id' => 'nullable|integer',
-            'Price' => 'nullable|numeric',
-            'Quantity' => 'nullable|integer',
-            'SKUCode' => 'required|string|unique:skus,SKUCode,' . $id . ',SKUID', // Ignore SKUCode for current record
+            'Quantity' => 'required|integer|min:1',
+            'SKUCode' => 'required|string|unique:skus,SKUCode,' . $id . ',SKUID',
         ]);
 
         $sku = SKU::findOrFail($id);
-        $sku->update($request->all());
+
+    
+        $pricePerItem = 100;
+        $calculatedPrice = $request->Quantity * $pricePerItem;
+
+        $sku->update([
+            'Product_id' => $request->Product_id,
+            'Size_id' => $request->Size_id,
+            'Color_id' => $request->Color_id,
+            'Quantity' => $request->Quantity,
+            'SKUCode' => $request->SKUCode,
+            'Price' => $calculatedPrice,
+        ]);
 
         return redirect()->route('skus.index')->with('success', 'SKU updated successfully!');
     }
 
-    // Remove the specified SKU from the database
     public function destroy($id)
     {
         $sku = SKU::findOrFail($id);

@@ -4,8 +4,8 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
               Product List
             </h2>
-            @can('create products')  <!-- Check if the user has permission to create products -->
-                <a href="{{ route('product.create') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 py-3">Add Product</a>
+            @can('create products') 
+                
             @endcan
         </div>
     </x-slot>
@@ -19,9 +19,11 @@
                             <tr>
                                 <th class="px-4 py-2 border">ID</th>
                                 <th class="px-4 py-2 border">Product Name</th>
+                                <th class="px-4 py-2 border">Category Name</th>
+                               
                                 <th class="px-4 py-2 border">Price</th>
                                 <th class="px-4 py-2 border">Image</th>
-                                @can('edit products')  <!-- Show 'Actions' column only if the user has edit permission -->
+                                @can('edit products')  
                                     <th class="px-4 py-2 border">Actions</th>
                                 @endcan
                             </tr>
@@ -29,19 +31,25 @@
                         <tbody>
                             @foreach($products as $product)
                                 <tr>
-                                    <td class="px-4 py-2 border">{{ $product->Product_id }}</td>
-                                    <td class="px-4 py-2 border">{{ $product->Product_name }}</td>
-                                    <td class="px-4 py-2 border">{{ $product->Price }}</td>
-                                    <td class="px-4 py-2 border">
-                                        <img src="{{ asset('storage/' . $product->Product_image) }}" alt="Product Image" class="w-16 h-16 object-cover">
+                                    <td class="px-4 py-2 border text-center">{{ $product->Product_id }}</td>
+                                    <td class="px-4 py-2 border text-center">{{ $product->Product_name }}</td>
+                                <td class="px-4 py-2 border text-center">
+                                        {{ $product->category->Category_name ?? 'N/A' }}
+                                    </td>
+                                    <td class="px-4 py-2 border text-center">{{ $product->Price }}</td>
+                                    <td class="px-4 py-2 border text-center">
+                                        @if ($product->product_image)
+                                    <img src="{{ asset('storage/' . $product->product_image) }}" alt="Product Image" class="w-16 h-16 object-cover">
+                                       @endif
                                     </td>
                                     @can('edit products') 
-                                        <td class="px-4 py-2 border">
-                                            <a href="{{ route('product.edit', $product->Product_id) }}" class="bg-blue-500 text-white px-3 py-1 rounded-md">Edit</a>
+                                        <td class="px-4 py-2 border text-center">
+                                            <a href="{{ route('product.create') }}" class="bg-green-700  rounded-md text-white px-5 py-2">Add Product</a>
+                                            <a href="{{ route('product.edit', $product->Product_id) }}" class="bg-yellow-500 text-white px-5 py-2 rounded-md">Edit</a>
                                             <form action="{{ route('product.destroy', $product->Product_id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-md">Delete</button>
+                                                <button type="submit" class="bg-red-500 text-white px-5 py-2 rounded-md">Delete</button>
                                             </form>
                                         </td>
                                     @endcan

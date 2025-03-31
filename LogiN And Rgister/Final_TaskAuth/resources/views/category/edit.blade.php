@@ -4,7 +4,7 @@
     <x-slot name="header">
         <div class="flex justify-between"> 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-              Edit Product
+              Edit Category
             </h2>
             <a href="{{ route('category.index') }}" class="bg-slate-700 text-xl2 rounded-md text-white px-5 py-3">Back</a>
         </div>
@@ -14,13 +14,13 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                            <form action="{{ route('category.update', $category->Category_id) }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('category.update', $Category->Category_id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('POST')
                                 
                                 <label for="Category_name" class="font-medium text-lg">Product Name</label>
                                 <div class="my-3">
-                                    <input type="text" name="Category_name" value="{{ old('Category_name', $category->Category_name) }}" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Product Name">
+                                    <input type="text" name="Category_name" value="{{ old('Category_name', $Category->Category_name) }}" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Category Name">
                                     @error('Category_name')
                                         <p class="text-red-400 font-medium">{{ $message }}</p>
                                     @enderror

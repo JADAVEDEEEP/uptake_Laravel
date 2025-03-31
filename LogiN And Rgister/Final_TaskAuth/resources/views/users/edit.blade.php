@@ -2,9 +2,9 @@
     <x-slot name="header">
         <div class="flex justify-between"> 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-              users/Edit
+              Users/Edit
             </h2>
-            <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
+            <a href="{{ route('users.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
         </div>
     </x-slot>
 
@@ -16,14 +16,14 @@
                  @csrf
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('name',$user->name)}}" type="text" name="name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
+                        <input value="{{ old('name',$user->name)}}" type="text" name="name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter User Name">
                         @error('name')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror
                     </div>
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('email',$user->email)}}" type="text" name="email" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
+                        <input value="{{ old('email',$user->email)}}" type="text" name="email" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter User Email">
                         @error('email')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror

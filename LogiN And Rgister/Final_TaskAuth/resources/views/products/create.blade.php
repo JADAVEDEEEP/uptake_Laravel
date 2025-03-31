@@ -15,7 +15,7 @@
                     <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- Product Name Input -->
+                      
                         <label for="Product_name" class="font-medium text-lg">Product Name</label>
                         <div class="my-3">
                             <input type="text" name="Product_name" value="{{ old('Product_name') }}" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Product Name">
@@ -52,8 +52,8 @@
                         <!-- Product Image Input -->
                         <label for="Product_image" class="font-medium text-lg">Product Image</label>
                         <div class="my-3">
-                            <input type="file" name="Product_image" class="border-gray-300 shadow-sm w-1/2 rounded-lg">
-                            @error('Product_image')
+                            <input type="file" name="product_image" class="border-gray-300 shadow-sm w-1/2 rounded-lg">
+                            @error('product_image')
                                 <p class="text-red-400 font-medium">{{ $message }}</p>
                             @enderror
                         </div>

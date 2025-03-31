@@ -1,4 +1,4 @@
-
+{{-- @extends('layouts.app') --}}
 <!doctype html>
 <html>
   <head>
@@ -7,44 +7,36 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </head>
   <body>
+   
     <div class="flex justify-center items-center min-h-screen bg-gray-100">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Reset Password</h2>
+            <h2 class="text-2xl font-semibold text-gray-800 text-center mb-6">Verify OTP</h2>
     
-            <form action="{{ route('reset') }}" method="POST" class="space-y-4">
+            <form action="{{ route('verify-otp') }}" method="POST" class="space-y-4">
                 @csrf
     
-                <!-- Email -->
+                <!-- Email Input -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-600">Email Address</label>
                     <input type="email" name="email" required
                         class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
     
-                <!-- New Password -->
+                <!-- OTP Input -->
                 <div>
-                    <label for="password" class="block text-sm font-medium text-gray-600">New Password</label>
-                    <input type="password" name="password" required
-                        class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
-                </div>
-    
-                <!-- Confirm Password -->
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-600">Confirm Password</label>
-                    <input type="password" name="password_confirmation" required
+                    <label for="otp" class="block text-sm font-medium text-gray-600">Enter OTP</label>
+                    <input type="text" name="otp" required
                         class="mt-1 p-2 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
     
                 <!-- Submit Button -->
                 <button type="submit"
                     class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 rounded-lg transition">
-                    Reset Password
+                    Verify OTP
                 </button>
             </form>
         </div>
     </div>
     
-    
- 
   </body>
 </html>

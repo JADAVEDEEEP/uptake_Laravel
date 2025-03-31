@@ -2,7 +2,7 @@
     <x-slot name="header">
         <div class="flex justify-between"> 
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-              users/Edit
+              Size/Edit
             </h2>
             <a href="{{ route('size.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
         </div>
@@ -16,8 +16,8 @@
                  @csrf
                     <label for="" class="font-medium font-medium text-lg">Name</label>
                     <div class="my-3">
-                        <input value="{{ old('size_name',$size->Size_name)}}" type="text" name="Size_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Name">
-                        @error('name')
+                        <input value="{{ old('Size_name',$size->Size_name)}}" type="text" name="Size_name" class="border-gray-300 shadow-sm w-1/2 rounded-lg" placeholder="Enter Size">
+                        @error('Size_name')
                         <p class="text-red-400 font-medium">{{$message}}</p>
                          @enderror
                     </div>

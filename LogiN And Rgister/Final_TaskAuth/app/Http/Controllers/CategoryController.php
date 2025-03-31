@@ -38,9 +38,9 @@ class CategoryController extends Controller
 
     public function edit($Category_id)
     {
-        $category = categorie::find($Category_id);
+        $Category = categorie::find($Category_id);
         $categories = Categorie::all();
-        return view('category.edit', compact('category', 'categories'));
+        return view('category.edit', compact('Category', 'categories'));
     }
 
     public function update(Request $request, $Category_id)
@@ -52,12 +52,12 @@ class CategoryController extends Controller
         ]);
     
       
-        $Category = categorie::findOrFail($Category_id);
+        $Category = categorie::find($Category_id);
         $Category->Category_name = $request->Category_name;
-        $Category->Status = $request->Status;
+        // $Category->Status = $request->Status;
         $Category->save();
     
-        return redirect()->route('product.index')->with('success', 'Product updated successfully!');
+        return redirect()->route('category.index')->with('success', 'Product updated successfully!');
     }
     
     public function destroy($Category_id)

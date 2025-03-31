@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ColorController;
+use App\Http\Controllers\OtpController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SizeController;
@@ -36,11 +37,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     
+    Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
     Route::get('/users', [UserController::class, 'index'])->name('user.index');
-    // Route::get('/role', [RollController::class, 'index'])->name('role.index');
-    // Route::post('/role', [RollController::class, 'store'])->name('role.store');
+    Route::post('/users', [UserController::class, 'store'])->name('user.store');
     Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
     Route::post('/users/{id}', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
 
     
     Route::get('/color/create', [ColorController::class, 'create'])->name('color.create');
@@ -89,8 +91,19 @@ Route::delete('/sku/{id}', [SKUController::class, 'destroy'])->name('skus.destro
 
 Route::middleware('auth')->group(function () {
     Route::resource('users', UserController::class);
-});
 
 });
+});
+
+   
+Route::get('/password', [OtpController::class, 'showForgotPasswordForm'])->name('password');
+Route::post('/password', [OtpController::class, 'sendOtp'])->name('password');
+
+Route::get('/verify-otp', [OtpController::class, 'showVerifyOtpForm'])->name('verify-otp.form');
+Route::post('/verify-otp', [OtpController::class, 'verifyOtp'])->name('verify-otp');
+
+Route::get('/reset', [OtpController::class, 'showResetPasswordForm'])->name('reset');
+Route::post('/reset', [OtpController::class, 'resetPassword'])->name('reset');
+
 
 require __DIR__.'/auth.php';

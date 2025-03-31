@@ -10,17 +10,17 @@ class products extends Model
     use HasFactory;
     protected $table = 'products';
 
-    protected $primaryKey = 'Product_id'; // Set primary key if different from 'id'
+    protected $primaryKey = 'Product_id'; 
 
     protected $fillable = [
         'Product_name',
         'Category_id',
-        'Product_image',
+        'product_image',
         'Price',
         'created_at'
     ];
     public function category()
     {
-        return $this->belongsTo(Categorie::class, 'category_id'); // Ensure 'category_id' is the correct foreign key
+        return $this->belongsTo(Categorie::class, 'Category_id'); 
     }
 }

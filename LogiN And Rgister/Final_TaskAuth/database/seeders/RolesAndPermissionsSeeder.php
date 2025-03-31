@@ -31,9 +31,13 @@ class RolesAndPermissionsSeeder extends Seeder
             'create colors',
             'edit colors',
             'delete colors',
+            'delete-skus',
+            'edit-skus',
+            'create-skus',
+            'view-skus',
         ];
 
-        
+      
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }

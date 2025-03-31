@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Categorie;
 use App\Models\products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -24,23 +25,27 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // Validate the incoming request
         $request->validate([
-            'Product_name' => 'required|string|max:255',
-            'Price' => 'required|numeric',
-            'Category_id' => 'required|exists:categories,Category_id', // Validate that category exists
-            'Product_image' => 'nullable|image',
+            'Product_name' => ['required', 'string', 'max:255'],
+            'Price' => ['required', 'numeric'],
+            'Category_id' => ['required', 'exists:categories,Category_id'], 
+            'product_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'], // Image validation
         ]);
     
-        // Create a new product instance and store the data
-        $product = new products();
-        $product->Product_name = $request->Product_name;
-        $product->Price = $request->Price;
-        $product->Category_id = $request->Category_id; // Store selected category_id
-        $product->Product_image = $request->file('Product_image') ? $request->file('Product_image')->store('products') : null; // Store image if uploaded
-        $product->save();
     
-        // Redirect to the product index with a success message
+        $imagePath = null;
+        if ($request->hasFile('product_image')) {
+            $imagePath = $request->file('product_image')->store('images', 'public'); // Saves in storage/app/public/images
+        }
+    
+       
+        $product = products::create([
+            'Product_name' => $request->Product_name,
+            'Price' => $request->Price,
+            'Category_id' => $request->Category_id,
+            'product_image' => $imagePath, 
+        ]);
+    
         return redirect()->route('product.index')->with('success', 'Product created successfully!');
     }
     
@@ -52,22 +57,37 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
+    
     public function update(Request $request, $Product_id)
     {
         $request->validate([
             'Product_name' => 'required|string|max:255',
-            'Product_image' => 'nullable|image',
+            'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', 
             'Price' => 'required|numeric',
         ]);
-
-        $product = products::findOrFail($Product_id);
+    
+        $product = products::findorFail($Product_id);
+    
+        if ($request->hasFile('product_image')) {
+           
+            if ($product->product_image) {
+                Storage::delete($product->product_image);
+            }
+    
+           
+            $imagePath = $request->file('product_image')->store('products', 'public');
+            $product->product_image = $imagePath;
+        }
+    
+       
         $product->Product_name = $request->Product_name;
-        $product->Product_image = $request->file('Product_image') ? $request->file('Product_image')->store('products') : $product->Product_image;
         $product->Price = $request->Price;
         $product->save();
-
+    
         return redirect()->route('product.index')->with('success', 'Product updated successfully!');
     }
+    
+
 
     public function destroy($Product_id)
     {
