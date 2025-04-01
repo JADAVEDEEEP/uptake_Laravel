@@ -34,11 +34,12 @@ class UserController extends Controller
             'name' => 'required|min:3',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
+             'role_id' => 'nullable|integer',
         
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('users.create')->withInput()->withErrors($validator);
+            return redirect()->route('user.create')->withInput()->withErrors($validator);
         }
 
     
@@ -46,12 +47,14 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = bcrypt($request->password); 
+        $user->role_id=3;
+      
         $user->save();
 
     
       
 
-        return redirect()->route('users.index')->with('success', 'User Added successfully');
+        return redirect()->route('user.index')->with('success', 'User Added successfully');
     }
 
     
@@ -89,9 +92,21 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
+        $user->assignRole('customer');
         $user->save();
 
         
-        return redirect()->route('users.index');
+        return redirect()->route('user.index');
     }
+
+    
+public function destroy(string $id)
+{
+    $size = User::find($id);
+
+    $size->delete();
+
+    
+    return redirect()->route('user.index')->with('success', 'User deleted successfully.');
+}
 }

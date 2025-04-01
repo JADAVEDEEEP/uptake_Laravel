@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
               Users/Edit
             </h2>
-            <a href="{{ route('users.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
+            <a href="{{ route('user.index') }}" class="bg-slate-700 text-xl2 rounded-md  text-white px-5 px-3">Back </a>
         </div>
     </x-slot>
 
