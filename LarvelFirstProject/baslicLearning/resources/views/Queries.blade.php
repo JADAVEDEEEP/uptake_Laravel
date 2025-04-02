@@ -1,5 +1,11 @@
 <div>
     <!-- Smile, breathe, and go slowly. - Thich Nhat Hanh -->
-<h1>Deep Jadav</h1>
+<ul>
+    @foreach ($user as $x)
+    <li>{{$x->id}}</li>
+<li>{{$x->name}}</li>
+<li>{{$x->email}}</li>
+<ul>    
+@endforeach
 </div>
 

@@ -6,14 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\ExecutionController;
 use App\Http\Controllers\LearningController;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\Practice;
+use App\Http\Controllers\product;
 use App\Http\Controllers\ProvisionServer;
 use App\Http\Controllers\Queries;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\Session;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Users;
 use App\Http\Controllers\ViewController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\CheckRequiredHeader;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use app\Test\Facades\TestFacades as FacadesTestFacades;
 use App\Test\StaticFacades;
@@ -268,7 +272,7 @@ Route::get('/cookie',function() {
 
  Route::controller(ViewController::class)->group((function(){
     Route::get('/home2/{name}','view')->whereAlpha('name');
-    Route::get('home3','view_two')->middleware('check');
+    Route::get('home3','view_two')->middleware('checy7hk');
  }
 ));
 
@@ -324,3 +328,33 @@ Route::controller(Queries::class)->group(function(){
     Route::get('/queries','quries');
         return view('queries');
     });
+
+    ///////////////////////////////////////ERM
+    
+    Route::controller(Users::class)->group(function(){
+        Route::get('/ja','deso');
+            return view('users');
+        });
+
+        //////////////////////////////////////PRACTICE LRAVEL ROUTES /////////////////////
+        
+        Route::post('los',[Practice::class,'post']);
+        Route::view('los','Practic');
+            
+        Route::get('/yash',[product::class,'pro']);
+
+
+        /////////////////////////////////////PRACTICE////////////////////////////////
+
+        Route::get('deepsss/{id}',function($id){
+            return $id;
+        })->WhereNumber('id');
+
+
+
+        //////////////////////////////////////EROM///////////////////////////////////////////
+
+         
+Route::get('/natu/{id}', function (string $id) {
+    return new UserResource(User::findOrFail($id));
+});

@@ -13,8 +13,9 @@
         <h1 class="text-danger">
             profile Page
         </h1>
-        @if (session('user'))
-        <h4>Name :  {{session('user')}}</h4>
+        @if (session('name'))
+        <h4>Name :  {{session('name')}}</h4>
+        <h4>Name :  {{session('email')}}</h4>
         <h4>Password : {{session('password')}}</h4>
         @else    
         <h1>No user found </h1>

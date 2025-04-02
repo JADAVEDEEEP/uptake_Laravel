@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\studentcontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,4 +27,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     Route::resource('member',PhotoController::class);
 
 
-    Route::get('/get',[Controller::class,'show']);
+    Route::get('/students',[studentcontroller::class,'list']);
+    Route::post('add-students',[studentcontroller::class,'addstudent']);
+    Route::put('update-students',[studentcontroller::class,'updateStudent']);
