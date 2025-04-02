@@ -11,6 +11,7 @@ use Spatie\Permission\Models\Role as ModelsRole;
 
 class UserController extends Controller
 {
+   
     public function index()
     {
         $users = User::latest()->paginate(10);

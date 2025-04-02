@@ -29,13 +29,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     
-    
-    Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
-    Route::get('/users', [UserController::class, 'index'])->name('user.index');
+    Route::get('/users/create', [UserController::class, 'create'])->name('user.create')->middleware('can:create-user');
+    Route::get('/users', [UserController::class, 'index'])->name('user.index')->middleware('can:view-user');
     Route::post('/users', [UserController::class, 'store'])->name('user.store');
-    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('user.edit')->middleware('can:edit-user');
     Route::post('/users/{id}', [UserController::class, 'update'])->name('user.update');
-    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('/users/{id}/delete', [UserController::class, 'destroy'])->name('users.destroy')->middleware('can:delete-user');
 });
 
 require __DIR__.'/auth.php';
